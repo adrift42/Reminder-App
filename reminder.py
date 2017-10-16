@@ -9,16 +9,19 @@ def determine_command(command_name, command_variables):
 
 def reminder(command_variables):
 	# Example:
-	# (-h "Birthday Dinner") (-d 20102017 7pm) (-r 4h)
+	# (-h "Birthday Dinner")( )(-d 20102017 7pm)( )(-r 4h)
 	m = re.compile("(-h .*)(\s)(-d \d* \d.*)(\s)(-r .*)")
 	g = m.search(command_variables)
 	if g:
 		error_logging(g.group(1))  # -h
-		heading_variable = g.group(1)
+		heading_variable = g.group(1)[3:]
+		error_logging("Heading variable: " + heading_variable)
 		error_logging(g.group(3))  # -d
-		date_variable = g.group(3)
+		date_variable = g.group(3)[3:]
+		error_logging("Date variable: " + date_variable)
 		error_logging(g.group(5))  # -r
-		reminder_variable = g.group(5)
+		reminder_variable = g.group(5)[3:]
+		error_logging("Reminder variable: " + reminder_variable)
 	else:
 		error_logging("function reminder(command_variables): regex did not match")
 
